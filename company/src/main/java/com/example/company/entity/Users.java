@@ -27,9 +27,9 @@ public class Users {
     private String email;
     private String password;
    
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_role")
-    private UserRole userRole;
-	
+//	@OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="role_id")
+//    private UserRole userRole;
+//	
 	 private boolean isDeleted;
 }

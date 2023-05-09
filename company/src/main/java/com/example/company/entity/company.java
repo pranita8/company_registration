@@ -1,9 +1,6 @@
 package com.example.company.entity;
 
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,17 +18,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "company")
-public class company {
+public class Company {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long companyId;
     private String companyName;
     private String phoneNumber;
     private String emailId;
-  
-    @OneToMany(cascade=CascadeType.ALL)
-     @JoinColumn(name="company_id")
-      private List<Users> users;
+    private String address;
+    
+//    @OneToMany(cascade=CascadeType.ALL)
+//    @JoinColumn(name="company_id")
+//    private List<Users> users;
+//    
+//    @OneToMany(cascade=CascadeType.ALL)
+//    @JoinColumn(name="company_id")
+//    private List<UserRole> role;
     
     private Boolean isDeleted;
 
