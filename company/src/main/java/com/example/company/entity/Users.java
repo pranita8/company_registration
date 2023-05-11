@@ -1,12 +1,10 @@
 package com.example.company.entity;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,12 +22,15 @@ public class Users {
     private Long userId;
     private String firstName;
     private String lastName;
+    
+    @Column(name="MAIL_ID", unique=true)
     private String email;
     private String password;
-   
+    private boolean verificationEnabled;
+    
 //	@OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name="role_id")
-//    private UserRole userRole;
+//    private UserRole role;
 //	
 	 private boolean isDeleted;
 }

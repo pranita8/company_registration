@@ -12,6 +12,8 @@ public class UserResponse {
 	    private String lastName;
 	    private String email;
 	    private String password;
-	    private UserRole userRole;
+	    private UserRole role;
 		private boolean isDeleted;
+		private String userRole;
+		private boolean verificationEnabled;
 }

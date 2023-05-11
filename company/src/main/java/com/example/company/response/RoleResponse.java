@@ -1,5 +1,9 @@
 package com.example.company.response;
 
-public class RoleResponse {
+import lombok.Data;
 
+@Data
+public class RoleResponse {
+	private Long RoleId;
+	private String userRole;
 }
