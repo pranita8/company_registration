@@ -2,18 +2,27 @@ package com.example.company.request;
 
 import java.util.List;
 
+import com.example.company.entity.UserRole;
 import com.example.company.entity.Users;
 
-import lombok.Getter;
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-public class CompanyRequest {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class companyRequest {
+   
+	private Long companyId;
+    private String companyName;
+    private String phoneNumber;
+    private String emailId;
+    private Boolean isDeleted;
+    private String address;
+    private List<Users> users;
+    private List<UserRole> role;
+
 	
-	  private Long companyId;
-	    private String companyName;
-	    private String phoneNumber;
-	    private String emailId;
-	    private String address;
-	    private Boolean isDeleted;
-		private List<Users> users;
 }

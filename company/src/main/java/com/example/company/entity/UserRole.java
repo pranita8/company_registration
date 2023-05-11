@@ -1,9 +1,17 @@
 package com.example.company.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +21,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user_role")
+@Table(name = "UserRole")
 public class UserRole {
-
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long RoleId;
-	private String userRole;
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long roleId;
+    private String roleName;
+	
+    
+//    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<roleMenuMapping> roleMenuMappings = new ArrayList<>();
+	
+	
 }

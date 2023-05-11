@@ -1,13 +1,19 @@
 package com.example.company.service;
 
-import com.example.company.request.CompanyRequest;
-import com.example.company.response.CompanyResponse;
+import java.util.List;
+import java.util.Optional;
 
-public interface CompanyService {
+import com.example.company.entity.UserRole;
+import com.example.company.request.companyRequest;
+import com.example.company.response.companyResponse;
 
-	static CompanyResponse createCompany(CompanyRequest companyRequest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public interface companyService {
+	
+	public List<companyResponse> getAllCompanies() throws Exception;
+	public Optional<companyResponse> getCompanyById(Long companyId) throws Exception;
+	public String updateCompany(Long companyId, companyRequest request) throws Exception;
+    public String deleteCompany(Long companyId) throws Exception;
+    public companyResponse createCompany(companyRequest companyRequest);
+//	String updateCompany(Long companyId, companyRequest request, UserRole role) throws Exception;
 
 }
