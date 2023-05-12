@@ -2,6 +2,8 @@ package com.example.company.entity;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Component
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,5 +38,22 @@ public class Users {
     @JoinColumn(name="role_id")
     private UserRole role;
 
+    public String getEmail() {
+		return email;
+	}
+
+    public String getPassword() {
+		return password;
+	}
+    
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//	    String usePassword = encoder.encode(password);
+		this.password = password; 
+	}
     
 }

@@ -7,5 +7,7 @@ import com.example.company.entity.menu;
 
 @Repository
 public interface menuRepository extends JpaRepository<menu, Long> {
+
+//	void updateById(Long menuId);
 	
 }

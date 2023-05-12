@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.company.entity.UserRole;
 import com.example.company.entity.menu;
 import com.example.company.repository.menuRepository;
 import com.example.company.service.menuService;
@@ -30,6 +31,23 @@ public class menuServiceImpl implements menuService{
     @Override
     public menu saveMenu(menu menu) {
         return repository.save(menu);
+    }
+    
+//    @Override
+//    public void updateMenu(Long menuId) {
+//        repository.updateById(menuId);
+//    }
+    
+    @Override
+    public menu updateMenu(Long menuId, menu menu) {
+        Optional<menu> existingMenu = repository.findById(menuId);
+        if (existingMenu.isPresent()) {
+            menu updatedMenu = existingMenu.get();
+            updatedMenu.setMenuName(menu.getMenuName());
+            return repository.save(updatedMenu);
+        } else {
+            return null; 
+        }
     }
 
     @Override

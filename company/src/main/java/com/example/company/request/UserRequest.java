@@ -24,4 +24,12 @@ public class userRequest {
 //		return null;
 //	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+    public String getPassword() {
+		return password;
+	}
+	
 }

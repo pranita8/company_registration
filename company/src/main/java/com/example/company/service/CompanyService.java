@@ -13,7 +13,8 @@ public interface companyService {
 	public Optional<companyResponse> getCompanyById(Long companyId) throws Exception;
 	public String updateCompany(Long companyId, companyRequest request) throws Exception;
     public String deleteCompany(Long companyId) throws Exception;
-    public companyResponse createCompany(companyRequest companyRequest);
+//    public companyResponse createCompany(companyRequest companyRequest);
+    public companyResponse createCompany(companyRequest companyRequest) throws Exception;
 //	String updateCompany(Long companyId, companyRequest request, UserRole role) throws Exception;
 
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import com.example.company.service.companyService;
 //import com.example.company.serviceImpl.companyRequest;
 import com.example.company.serviceImpl.companyServiceImpl;
 
+@Component
 @RestController
 public class companyController {
 	
@@ -52,10 +54,17 @@ public class companyController {
         }
     }
    
+    
+//    //post company
+//    @PostMapping("/register")
+//	public ResponseEntity<companyResponse> signUp(@RequestBody companyRequest companyRequest) {
+//		companyResponse response = service.createCompany(companyRequest);
+//		return ResponseEntity.ok(response);
+//	}
 
     //post company
     @PostMapping("/register")
-	public ResponseEntity<companyResponse> signUp(@RequestBody companyRequest companyRequest) {
+	public ResponseEntity<companyResponse> signUp(@RequestBody companyRequest companyRequest) throws Exception {
 		companyResponse response = service.createCompany(companyRequest);
 		return ResponseEntity.ok(response);
 	}
@@ -93,6 +102,7 @@ public class companyController {
         String deleteResult =service.deleteCompany(companyId);
         return new ResponseEntity <String> (deleteResult, HttpStatus.OK);
     }
+    
 
     
     

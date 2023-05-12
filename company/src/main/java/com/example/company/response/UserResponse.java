@@ -22,4 +22,14 @@ public class userResponse {
 	private boolean isDeleted;
 	private UserRole role;
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//	    String usePassword = encoder.encode(password);
+		this.password = password; 
+	}
+	
 }

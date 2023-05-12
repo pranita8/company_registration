@@ -23,6 +23,11 @@ public class companyRequest {
     private String address;
     private List<Users> users;
     private List<UserRole> role;
+    
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 }

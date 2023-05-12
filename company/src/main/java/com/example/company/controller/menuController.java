@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,24 +22,31 @@ public class menuController {
 	@Autowired
     private menuService menus;
     
-    @GetMapping("/")
+    @GetMapping("/getall")
     public List<menu> getAllMenus() {
         return menus.getAllMenus();
     }
 
-    @GetMapping("/{menuId}")
+    @GetMapping("/menuById/{menuId}")
     public menu getMenuById(@PathVariable Long menuId) {
         return menus.getMenuById(menuId);
     }
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public menu saveMenu(@RequestBody menu menu) {
         return menus.saveMenu(menu);
     }
+    
+    @PutMapping("/update/{menuId}")
+    public String updateMenu(@PathVariable Long menuId,@RequestBody menu menu) {
+        menus.updateMenu(menuId,menu);
+        return "menu updated successfully";
+    }
 
-    @DeleteMapping("/{menuId}")
-    public void deleteMenu(@PathVariable Long menuId) {
+    @DeleteMapping("/delete/{menuId}")
+    public String deleteMenu(@PathVariable Long menuId) {
     	menus.deleteMenu(menuId);
+    	return "menu deleted successfully";
     }
 
 }

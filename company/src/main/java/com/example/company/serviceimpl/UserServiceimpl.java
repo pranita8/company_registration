@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.company.repository.usersRepository;
@@ -22,6 +23,9 @@ public class userServiceImpl implements UserService{
 	
 	@Autowired
 	private usersRepository repository;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	
 	@Override
@@ -30,6 +34,8 @@ public class userServiceImpl implements UserService{
 	        Users user = userRequestConverter.postUsersEntity(userRequest);
 //	        String encryptedPassword = passwordEncoder.encode(user.getPassword());
 //	        user.setPassword(encryptedPassword);
+	        System.out.println("hello");
+	        System.out.println(user);
 	        Users savedUser = this.repository.save(user);
 	        return userResponseConverter.convertToResponse(savedUser);
 	    } catch (Exception e) {
@@ -38,9 +44,6 @@ public class userServiceImpl implements UserService{
 	    }
 	}
 	
-	
-	
-
     @Override
     public List<Users> getAllUsers() {
         return repository.findAll();
@@ -61,5 +64,37 @@ public class userServiceImpl implements UserService{
     public void deleteUser(Long userId) {
     	repository.deleteById(userId);
     }
+    
+    
+    public userServiceImpl(usersRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
+        this.repository = userRepository;
+        this.passwordEncoder = bCryptPasswordEncoder;
+    }
+    
+	
+	public Optional<userResponse> login(String email, String password) throws Exception {
+		try {
+			Optional<Users> userOptional = repository.findByEmail(email);
+			if(!userOptional.isEmpty()) {
+				if (passwordEncoder.matches(password, userOptional.get().getPassword()))
+				{
+//					System.out.printf(password,userOptional.get().getPassword());
+					if (password.length() < 5) {
+	                    throw new Exception("Password is too short");
+	                }
+					userResponse userResponse = userResponseConverter.convertToResponse(userOptional.get());
+					return Optional.of(userResponse);
+				}
+				else {
+					throw new Exception("Password not matches");
+				}
+			}else {
+				throw new Exception(" User not found");
+			}
+		} catch (Exception e) {
+			// Handle exception
+			throw new Exception( e.getMessage());
+		}
+	}
 
 }

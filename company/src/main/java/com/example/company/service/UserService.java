@@ -1,6 +1,7 @@
 package com.example.company.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,7 @@ public interface UserService {
     public Users saveUser(Users user);
     public void deleteUser(Long userId);
 	userResponse createUser(userRequest userRequest) throws Exception;
+	Optional<userResponse> login(String email, String password) throws Exception;
+
 	
 }

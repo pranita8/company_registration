@@ -1,6 +1,7 @@
 package com.example.company.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,12 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+    private usersRoleRepository repository;
+    
+    @Autowired
+    private usersRepository userRepository;
 	
 //	@PostMapping("/users")
 //	public Users createUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password, @RequestParam boolean isDeleted, @RequestParam Long roleId) {
@@ -60,11 +67,6 @@ public class UserController {
         userService.deleteUser(userId);
     }
     
-    @Autowired
-    private usersRoleRepository repository;
-    
-    @Autowired
-    private usersRepository userRepository;
  
     @PostMapping("/add")
     public ResponseEntity<?> addUser(@RequestBody Users user) {
@@ -74,6 +76,13 @@ public class UserController {
         user.setRole(role);
         userRepository.save(user);
         return ResponseEntity.ok().build();
+    }
+    
+  //login
+    @PostMapping("/login")
+    public ResponseEntity<userResponse> login(@RequestBody Users user) throws Exception{
+       Optional<userResponse> object =  userService.login(user.getEmail(), user.getPassword());
+       return ResponseEntity.of(object);
     }
 	
 }

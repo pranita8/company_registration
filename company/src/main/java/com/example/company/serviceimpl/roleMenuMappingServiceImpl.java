@@ -39,6 +39,19 @@ public class roleMenuMappingServiceImpl implements roleMenuMappingService {
     public roleMenuMapping saveRoleMenuMapping(roleMenuMapping mapping) {
         return repository.save(mapping);
     }
+    
+    
+    @Override
+    public roleMenuMapping updateRoleMenu(Long mappingId,roleMenuMapping roleMenu) {
+        Optional<roleMenuMapping> existingRole = repository.findById(mappingId);
+        if (existingRole.isPresent()) {
+        	roleMenuMapping updatedRole = existingRole.get();
+            updatedRole.setMenuId(roleMenu.getMenuId());
+            return repository.save(updatedRole);
+        } else {
+            return null; 
+        }
+    }
 
     @Override
     public void deleteRoleMenuMapping(Long mappingId) {

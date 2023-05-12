@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class companyServiceImpl implements companyService{
 	
 //	@Autowired
     private final companyRepository repository;
-	
+    
 	public companyServiceImpl(companyRepository repository) {
 		super();
 		this.repository = repository;
@@ -61,14 +62,72 @@ public class companyServiceImpl implements companyService{
     
 
     //post company
+//    @Override
+//	public companyResponse createCompany(companyRequest companyRequest) {
+//		
+////    	String encryptedPassword = passwordEncoder.encode(user.getPassword());
+////        user.setPassword(encryptedPassword);
+//		company companyModel =companyRequestConverter.postCompanyEntity(companyRequest);
+//		company saveCompany = this.repository.save(companyModel);
+//		return companyResponseConverter.convertToResponse(saveCompany);
+//		
+//	}
+    
+    
+    @Autowired
+	BCryptPasswordEncoder passwordEncoder;
+    
+    
     @Override
-	public companyResponse createCompany(companyRequest companyRequest) {
-		
-		company companyModel =companyRequestConverter.postCompanyEntity(companyRequest);
-		company saveCompany = this.repository.save(companyModel);
-		return companyResponseConverter.convertToResponse(saveCompany);
-		
-	}
+    public companyResponse createCompany(companyRequest companyRequest) throws Exception {
+        try {
+            company companyModel = companyRequestConverter.postCompanyEntity(companyRequest);
+            
+            // encrypt the password for each user in the Company entity
+            List<Users> users = companyModel.getUsers();
+            for (Users user : users) {
+                String encryptedPassword = passwordEncoder.encode(user.getPassword());
+                user.setPassword(encryptedPassword);
+            }
+            // save the Company entity to the database
+            company saveCompany = this.repository.save(companyModel);
+            
+            // convert the saved entity to a response object and return it
+            return companyResponseConverter.convertToResponse(saveCompany);
+        } catch (Exception e) {
+            throw new Exception("Error occurred while creating company", e);
+        }
+    }
+    
+    
+//    @Override
+//    public companyResponse createCompany(companyRequest companyRequest) throws Exception {
+//        try {
+//            // check if the email is already registered in the database
+//            String email = companyRequest.getEmail();
+//            Optional<company> existingCompany = repository.findByEmail(email);
+//            if (existingCompany.isPresent()) {
+//                throw new Exception("Email already registered. Please use a different email address.");
+//            }
+//            
+//            company companyModel = companyRequestConverter.postCompanyEntity(companyRequest);
+//            
+//            // encrypt the password for each user in the Company entity
+//            List<Users> users = companyModel.getUsers();
+//            for (Users user : users) {
+//                String encryptedPassword = passwordEncoder.encode(user.getPassword());
+//                user.setPassword(encryptedPassword);
+//            }
+//            // save the Company entity to the database
+//            company saveCompany = this.repository.save(companyModel);
+//            
+//            // convert the saved entity to a response object and return it
+//            return companyResponseConverter.convertToResponse(saveCompany);
+//        } catch (Exception e) {
+//            throw new Exception("Error occurred while creating company", e);
+//        }
+//    }
+    
     
     
 // // update company
